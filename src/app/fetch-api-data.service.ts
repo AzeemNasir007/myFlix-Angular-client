@@ -4,8 +4,15 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+interface IUserRegistration {
+  Username: string;
+  Password: string;
+  Email: string;
+  Birthday: string;
+}
+
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'https://movieapi-ibtr.onrender.com';
+const apiUrl = 'https://movieapi-ibtr.onrender.com/';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,14 +22,13 @@ export class FetchApiDataService {
   constructor(private http: HttpClient) {
   }
 
-
   /**
-   * @service POST to the respective endpoint of apiUrl to register a new user
-   * @param {any} userDetails
-   * @returns a new user object in json format
-   * @function userRegistration
-   */
-  userRegistration(userDetails: any): Observable<any> {
+     * @service POST to the respective endpoint of apiUrl to register a new user
+     * @param {any} userDetails
+     * @returns a new user object in json format
+     * @function userRegistration
+     */
+  userRegistration(userDetails: IUserRegistration): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'users', userDetails).pipe(
       catchError(this.handleError)
