@@ -11,6 +11,11 @@ interface IUserRegistration {
   Birthday: string;
 }
 
+interface IUserLoginRequest {
+  Username: string;
+  Password: string;
+}
+
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://movieapi-ibtr.onrender.com/';
 @Injectable({
@@ -29,7 +34,6 @@ export class FetchApiDataService {
      * @function userRegistration
      */
   userRegistration(userDetails: IUserRegistration): Observable<any> {
-    console.log(userDetails);
     return this.http.post(apiUrl + 'users', userDetails).pipe(
       catchError(this.handleError)
     );
@@ -37,12 +41,11 @@ export class FetchApiDataService {
 
   /**
    * @service POST to the respective endpoint of apiUrl to login a user
-   * @param {any} userDetails
+   * @param {IUserLoginRequest} userDetails
    * @returns a user object in json format
    * @function userLogin
    */
-  userLogin(userDetails: any): Observable<any> {
-    console.log(userDetails);
+  userLogin(userDetails: IUserLoginRequest): Observable<any> {
     return this.http
       .post(apiUrl + 'login', userDetails)
       .pipe(catchError(this.handleError));
